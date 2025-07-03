@@ -1,0 +1,40 @@
+<!-- public/formulario.html -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto | Avanti</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <!-- CABECERA GLOBAL -->
+    <header>
+        <h1>Avanti Shop</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="carrito.html">Carrito 🛒 <span id="cart-count">0</span></a>
+            <a href="formulario.html">Contacto</a>
+        </nav>
+    </header>
+    <main>
+        <p>Completá el formulario y te responderemos a la brevedad.</p>
+
+        <form action="https://formspree.io/f/tuCodigo" method="POST">
+            <input name="nombre" type="text" placeholder="Nombre" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <textarea name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+    <!-- FOOTER GLOBAL -->
+    <footer>
+        <p>&copy; 2025 Avanti Shop. Todos los derechos reservados.</p>
+    </footer>
+
+    <script type="module" src="js/cart.js"></script>
+</body>
+
+</html>

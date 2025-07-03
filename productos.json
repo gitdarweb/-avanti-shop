@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "nombre": "Shampoo A",
+        "precio": 1200,
+        "imagen": "./img/SHAMPOO_CURLY.webp"
+    },
+    {
+        "id": 2,
+        "nombre": "Acond. B",
+        "precio": 1400,
+        "imagen": "./img/Color-Care-Conditioner.webp"
+    },
+    {
+        "id": 3,
+        "nombre": "Mascarilla C",
+        "precio": 1600,
+        "imagen": "./img/equave-bifase.png"
+    },
+    {
+        "id": 4,
+        "nombre": "Spray D",
+        "precio": 1100,
+        "imagen": "./img/equave-lisslook.png"
+    },
+    {
+        "id": 5,
+        "nombre": "Serum E",
+        "precio": 1800,
+        "imagen": "./img/olaplex-4.png"
+    },
+    {
+        "id": 6,
+        "nombre": "Ampolla F",
+        "precio": 1300,
+        "imagen": "./img/olaplex-7.webp"
+    },
+    {
+        "id": 7,
+        "nombre": "Crema G",
+        "precio": 1700,
+        "imagen": "./img/olaplex-10.png"
+    },
+    {
+        "id": 8,
+        "nombre": "Gel H",
+        "precio": 1250,
+        "imagen": "./img/Bruma-Parfum.webp"
+    },
+    {
+        "id": 9,
+        "nombre": "Tónico I",
+        "precio": 1500,
+        "imagen": "./img/Tratamiento-Argan-Clásico-25-50-y-100ml.webp"
+    },
+    {
+        "id": 10,
+        "nombre": "Aceite J",
+        "precio": 2000,
+        "imagen": "./img/uniqone.png"
+    }
+]

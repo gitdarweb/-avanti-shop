@@ -1,0 +1,44 @@
+<!-- pago.html -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pago | Avanti</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <!-- Header reutilizable -->
+  <header>
+    <h1>Finalizar Compra</h1>
+    <a href="index.html">← Seguir comprando</a>
+    <a href="carrito.html" id="cart-icon">
+      🛒 <span id="cart-count">0</span>
+    </a>
+  </header>
+
+  <main>
+    <h2>Datos para el envío / pago</h2>
+
+    <!-- Resumen de compra -->
+    <section id="resumen" class="resumen-compra">
+      <!-- Se llena dinámicamente desde pago.js -->
+    </section>
+
+    <!-- Formulario -->
+    <form id="form-pago">
+      <input type="text" placeholder="Nombre completo" required />
+      <input type="email" placeholder="Correo electrónico" required />
+      <textarea placeholder="Comentarios (opcional)" rows="4"></textarea>
+      <button type="submit">Pagar</button>
+    </form>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module" src="js/cart.js"></script>
+  <script type="module" src="js/pago.js"></script>
+</body>
+
+</html>
