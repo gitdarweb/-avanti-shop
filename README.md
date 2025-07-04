@@ -19,7 +19,7 @@ Formulario funcional:	Dos formularios (formulario.html y pago.html) conectados a
 
 Diseño responsivo:	Grilla de productos adaptable a todos los tamaños de pantalla. Navegación y formularios fluidos.
 
-Carga dinámica de productos:	Archivo productos.json consumido con fetch() y renderizado con JavaScript.
+Carga dinámica de productos:	Se incluye un `productos.json` como ejemplo local, y también una versión activa con consumo de la API [DummyJSON](https://dummyjson.com/products?limit=10) mediante `fetch()`. |
 
 Código organizado en módulos:	Estructura clara: app.js, cart.js, formulario.js, pago.js, etc.
 
@@ -32,7 +32,7 @@ Buenas prácticas web:	Semántica HTML, accesibilidad básica (alt, roles) y est
 ├── carrito.html
 ├── pago.html
 ├── formulario.html
-├── productos.json
+├── productos.json ( usada como ejemplo alternativo )
 │
 ├── css/
 │   └── styles.css
@@ -45,11 +45,13 @@ Buenas prácticas web:	Semántica HTML, accesibilidad básica (alt, roles) y est
     └── renderProducts.js
 
 
+
 ---
 
 ## ✨ Comentario final
 
-Este trabajo reúne todos los conocimientos adquiridos durante la cursada: manipulación del DOM, módulos de JavaScript, uso de `fetch()`, manejo de formularios, almacenamiento local, diseño responsivo y buenas prácticas de desarrollo web. Fue desarrollado de forma individual y representa un ejemplo completo de integración de frontend moderno.
+Este proyecto reúne todos los conocimientos adquiridos en el curso: manipulación del DOM, uso de `fetch()` para APIs, manejo de formularios, almacenamiento en `localStorage`, diseño responsivo y organización en módulos. Fue desarrollado de forma individual y representa un ejemplo completo de integración de herramientas modernas de frontend.
 
 ---
+
 
