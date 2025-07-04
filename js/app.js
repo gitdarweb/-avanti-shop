@@ -1,23 +1,31 @@
-/*  app.js  –  Carga catálogo y lo envía a renderProducts.js  */
-import { mostrarProductos } from './renderProducts.js';   // ⇠ NUEVO import
+/*  app.js – carga de catálogo desde DummyJSON y llamado a renderizador */
+import { mostrarProductos } from './renderProducts.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const API_URL = 'https://dummyjson.com/products?limit=10';  // 10 ítems
+
     try {
-        // 1. Traer los 10 productos desde productos.json
-        const res = await fetch('./productos.json');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const productos = await res.json();
+        /* La API devuelve { products: [ ... ] } */
+        const data = await res.json();
 
-        // 2. (Opcional) Exponerlos en consola para depurar
+        /* ✂️ Adaptamos los campos para que coincidan con los que usa el carrito */
+        const productos = data.products.map(p => ({
+            id: p.id,
+            nombre: p.title,          // tu card usa → nombre
+            precio: p.price,          // tu card usa → precio
+            imagen: p.thumbnail       // tu card usa → imagen
+        }));
+
+        /* Opcional: exponer en consola para depurar */
         window.Productos = productos;
 
-        // 3. Dibujar las tarjetas en el grid
-        mostrarProductos(productos);        // ← función que ya genera cada card
+        /* Mostrar en el grid */
+        mostrarProductos(productos);
     } catch (err) {
         console.error('Error al cargar productos:', err);
-
-        // Mensaje amistoso en pantalla si falla el fetch
         const grid = document.getElementById('products');
         if (grid) grid.textContent = 'No se pudieron cargar los productos 🙁';
     }
