@@ -1,57 +1,63 @@
-// pago.js  (ES Module)
-/* -------------------------------------------------
-   Muestra el resumen de compra y vacía el carrito
-   cuando el usuario envía el formulario de pago.
--------------------------------------------------- */
+/* pago.js — muestra resumen, envía a Formspree y da feedback visual */
 import { vaciarCarrito, updateCartCount } from './cart.js';
 
-/* Pintar resumen a partir del localStorage ------------- */
+/* -------- Función auxiliar: dibujar resumen del carrito ------------ */
 function pintarResumen() {
     const cont = document.getElementById('resumen');
-    if (!cont) return;
-
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    if (carrito.length === 0) {
-        cont.innerHTML = '<p>🛒 El carrito está vacío.</p>';
+    if (!cont) return;
+
+    if (!carrito.length) {
+        cont.innerHTML = '<p>🛒 Tu carrito está vacío.</p>';
         return;
     }
 
     let total = 0;
-    cont.innerHTML = '';                 // limpiar por si recarga
+    cont.innerHTML = '';
 
-    carrito.forEach(item => {
-        const subtotal = item.precio * item.cantidad;
-        total += subtotal;
-
-        const p = document.createElement('p');
-        p.textContent = `${item.nombre} x${item.cantidad} — $${subtotal}`;
-        cont.appendChild(p);
+    carrito.forEach(p => {
+        const sub = p.precio * p.cantidad;
+        total += sub;
+        cont.innerHTML += `<p>${p.nombre} ×${p.cantidad} — $${sub}</p>`;
     });
 
-    /* Total en negrita */
-    const pTotal = document.createElement('p');
-    pTotal.style.fontWeight = 'bold';
-    pTotal.textContent = `Total: $${total}`;
-    cont.appendChild(pTotal);
+    cont.innerHTML += `<p style="font-weight:bold">Total: $${total}</p>`;
 }
 
-/* ------------------------------------------------- */
+/* ------------------------- Lógica principal ------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
-    /* 1. Mantener contador del carrito en el header */
     updateCartCount();
-
-    /* 2. Mostrar resumen */
     pintarResumen();
 
-    /* 3. Al enviar el formulario se vacía el carrito     *
-     *    (no usamos preventDefault porque queremos que   *
-     *    Formspree procese el envío y redireccione).     */
     const form = document.getElementById('form-pago');
-    if (form) {
-        form.addEventListener('submit', () => {
-            vaciarCarrito();          // limpia localStorage
-            updateCartCount();        // refresca el ícono justo antes de salir
-        });
-    }
+    const aviso = document.getElementById('mensaje-enviado');
+    if (!form) return;
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();                        // no cambiamos de página
+
+        try {
+            const datos = new FormData(form);
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: datos,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (!res.ok) throw new Error('Error al enviar');
+
+            /* ✅ Éxito → feedback igual que en formulario.html */
+            form.reset();                    // limpia los campos
+            vaciarCarrito();                 // vacía storage + contador
+            updateCartCount();
+            aviso.classList.remove('oculto');
+            aviso.classList.add('visible');  // se muestra el cartel verde
+            pintarResumen();                 // ahora dirá “carrito vacío”
+
+        } catch (err) {
+            alert('Ups, no se pudo procesar el pago. Intentalo más tarde.');
+            console.error(err);
+        }
+    });
 });

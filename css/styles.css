@@ -208,3 +208,72 @@ footer {
 .resumen-compra p {
     margin-bottom: 0.5rem;
 }
+
+/* --------------------------------------------
+   ✅ Mejora del grid de productos (index.html)
+-------------------------------------------- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* 5 columnas fijas */
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* En pantallas medianas (tablet): 3 columnas */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* En pantallas pequeñas (celular horizontal): 2 columnas */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* En móviles pequeños (celular vertical): 1 columna */
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- Aviso de formulario enviado ------------------------ */
+.oculto {
+    display: none;
+}
+
+#mensaje-enviado {
+    display: none;
+    /* oculto por defecto, doble seguro */
+    background: #e6ffee;
+    color: #246b27;
+    border: 1px solid #38a169;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#mensaje-enviado.visible {
+    /* clase que pondremos con JS */
+    display: block;
+}
+/* Oculta por defecto cualquier elemento con esta clase */
+.oculto {
+    display: none;
+}
+
+/* Estilo opcional del aviso */
+.exito {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: #eaf9e5;
+    border: 1px solid #4caf50;
+    color: #256029;
+    border-radius: 4px;
+    font-weight: 600;
+}

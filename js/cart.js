@@ -29,9 +29,9 @@ export function agregarAlCarrito(producto) {
     const existe = carrito.find(i => i.id === producto.id);
     existe ? existe.cantidad++ : carrito.push({ ...producto, cantidad: 1 });
 
-    guardar();            // persistir
-    updateCartCount();    // header
-    mostrarPreview();     // mini‑preview en index
+    guardar();
+    updateCartCount();
+    mostrarPreview();
 }
 
 /* -------------------------------------------------
@@ -39,10 +39,11 @@ export function agregarAlCarrito(producto) {
 -------------------------------------------------- */
 function eliminarPorIndice(idx) {
     carrito.splice(idx, 1);
-    guardar(); pintarCarrito();
+    guardar();
+    pintarCarrito();
 }
 
-/* 🔄  Exporto para pago.html (vacía luego del pago) */
+/* 🔄 Exporto para pago.html – se usa en pago.js */
 export function vaciarCarrito() {
     carrito = [];
     guardar();
@@ -54,7 +55,7 @@ export function vaciarCarrito() {
 function pintarCarrito() {
     const cont = document.getElementById('carrito-contenedor');
     const totalDiv = document.getElementById('carrito-total');
-    if (!cont || !totalDiv) return;                              // no estamos en carrito.html
+    if (!cont || !totalDiv) return;          // no estamos en carrito.html
 
     cont.innerHTML = '';
     if (!carrito.length) {
@@ -72,27 +73,31 @@ function pintarCarrito() {
         const card = document.createElement('div');
         card.className = 'card-cart';
         card.innerHTML = `
-      <h3>${item.nombre}</h3>
-      <p>$${item.precio} × ${item.cantidad}</p>
-      <p>Subtotal: $${subtotal}</p>
-      <button class="btn-eliminar" data-idx="${idx}">Eliminar</button>
-    `;
+          <h3>${item.nombre}</h3>
+          <p>$${item.precio} × ${item.cantidad}</p>
+          <p>Subtotal: $${subtotal}</p>
+          <button class="btn-eliminar" data-idx="${idx}">Eliminar</button>
+        `;
         cont.appendChild(card);
     });
 
     totalDiv.textContent = `Total: $${total}`;
 
-    // Listeners de “Eliminar”
+    /* Listeners de “Eliminar” */
     cont.querySelectorAll('.btn-eliminar')
-        .forEach(btn => btn.addEventListener('click',
-            e => eliminarPorIndice(+e.currentTarget.dataset.idx)));
+        .forEach(btn =>
+            btn.addEventListener('click',
+                e => eliminarPorIndice(+e.currentTarget.dataset.idx)));
 
     updateCartCount();
 }
 
 /* Redirección a pago.html  */
 function finalizarCompra() {
-    if (!carrito.length) { alert('⚠️ Carrito vacío'); return; }
+    if (!carrito.length) {
+        alert('⚠️ Carrito vacío');
+        return;
+    }
 
     /* (Opcional) guardar resumen para mostrarlo en pago.html */
     sessionStorage.setItem('resumenCompra', JSON.stringify(carrito));
@@ -104,14 +109,20 @@ function finalizarCompra() {
    4. Inicialización automática en cada página
 -------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
-    updateCartCount();       // siempre
-    mostrarPreview();        // index.html
-    pintarCarrito();         // carrito.html
+    updateCartCount();   // siempre
+    mostrarPreview();    // index.html
+    pintarCarrito();     // carrito.html
 
-    // Botones presentes sólo en carrito.html
+    /* 🔔 Si venimos de Formspree con ?success=1 mostrar aviso */
+    const params = new URLSearchParams(location.search);
+    if (params.get('success') === '1') {
+        const aviso = document.getElementById('mensaje-compra');
+        if (aviso) aviso.classList.remove('oculto');
+    }
+
+    /* Botones presentes sólo en carrito.html */
     const btnVaciar = document.getElementById('btn-vaciar');
     const btnFin = document.getElementById('btn-finalizar');
-
     if (btnVaciar) btnVaciar.addEventListener('click', vaciarCarrito);
     if (btnFin) btnFin.addEventListener('click', finalizarCompra);
 });
@@ -119,3 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
 /* -------------------------------------------------
    Fin del módulo cart.js
 -------------------------------------------------- */
+//             throw new Error('Error al enviar');
+//         }
