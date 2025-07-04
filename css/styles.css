@@ -1,49 +1,101 @@
-/* styles.css */
+/* ==============================================================
+   Avanti Shop  –  styles.css (único archivo central)
+   --------------------------------------------------------------
+   Módulos:
+      0. Variables / Reset
+      1. Layout base (body, header, nav, footer)
+      2. Grilla de productos + tarjetas
+      3. Vista previa del carrito (index)  +   Página carrito.html
+      4. Formularios (formulario.html  y  pago.html)
+      5. Avisos “exito” ocultos/visibles
+      6. Breakpoints responsivos
+================================================================ */
+
+/* === 0. Variables + Reset ==================================== */
+:root {
+    --clr-bg: #f7f7f7;
+    --clr-text: #333;
+    --clr-accent: #008060;
+    --clr-accent-dk: #005f46;
+    --clr-card-bg: #fff;
+    --clr-card-bd: #ddd;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif
+    font-family: sans-serif;
 }
 
+/* === 1. Layout base ========================================== */
 body {
-    background: #f7f7f7;
-    color: #333;
-    padding: 1rem
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    padding: 1rem;
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
+    gap: 1rem;
 }
 
-#icono-carrito {
-    font-size: 1.2rem;
+header nav {
+    display: flex;
+    gap: 1rem;
+}
+
+header nav a {
     text-decoration: none;
-    color: #333
+    font-weight: bold;
+    color: var(--clr-accent);
+    transition: color .3s;
 }
 
+header nav a:hover {
+    color: var(--clr-accent-dk);
+}
+
+#icono-carrito,
+#cart-icon {
+    font-size: 1.2rem;
+    color: var(--clr-text);
+    text-decoration: none;
+}
+
+footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    font-size: .9rem;
+    color: #777;
+}
+
+/* === 2. Grilla de productos + tarjetas ======================= */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem
+    gap: 1.5rem;
+    margin-top: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    /* desktop: 5 x 2 */
 }
 
 .card {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: var(--clr-card-bg);
+    border: 1px solid var(--clr-card-bd);
     border-radius: 6px;
     padding: 1rem;
-    text-align: center
+    text-align: center;
 }
 
 .card img {
     width: 100%;
     height: auto;
     border-radius: 4px;
-    margin-bottom: .5rem
+    margin-bottom: .5rem;
 }
 
 .card button {
@@ -53,37 +105,26 @@ header {
     border-radius: 4px;
     background: #333;
     color: #fff;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .card button:hover {
-    background: #555
+    background: #555;
 }
 
+/* === 3‑A. Vista previa del carrito (index) =================== */
 #preview {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 1rem;
-    margin-top: 2rem
+    margin-top: 2rem;
 }
-
-@media(max-width:600px) {
-    header {
-        flex-direction: column;
-        gap: .5rem
-    }
-
-    .grid {
-        grid-template-columns: 1fr
-    }
-}
-/* === Carrito de compras: vista previa y página carrito.html === */
 
 #cart-container p {
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-    padding: 0.2rem 0.5rem;
+    font-size: .95rem;
+    margin-bottom: .3rem;
+    padding: .2rem .5rem;
     border-bottom: 1px solid #eee;
 }
 
@@ -91,11 +132,11 @@ header {
 #btn-vaciar,
 #btn-finalizar {
     margin-top: 1rem;
-    padding: 0.5rem 1.2rem;
+    padding: .5rem 1.2rem;
     border: none;
     border-radius: 4px;
-    background-color: #008060;
-    color: white;
+    background: var(--clr-accent);
+    color: #fff;
     font-weight: bold;
     cursor: pointer;
 }
@@ -103,10 +144,10 @@ header {
 #go-to-cart:hover,
 #btn-vaciar:hover,
 #btn-finalizar:hover {
-    background-color: #005f46;
+    background: var(--clr-accent-dk);
 }
 
-/* Carrito página completa (carrito.html) */
+/* === 3‑B. Página carrito.html ================================ */
 #carrito-contenedor {
     margin-top: 1rem;
     background: #fff;
@@ -116,87 +157,56 @@ header {
 }
 
 #carrito-contenedor p {
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 0.3rem;
+    padding-bottom: .3rem;
 }
 
-/* Total del carrito */
+.card-cart {
+    margin-bottom: 1rem;
+}
+
 #carrito-total {
     font-weight: bold;
     font-size: 1.1rem;
     margin-top: 1rem;
 }
 
-/* Formulario (pago.html y formulario.html) */
+/* === 4. Formularios ========================================== */
 form {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: .8rem;
     margin-top: 1rem;
 }
 
 form input,
 form textarea {
-    padding: 0.6rem;
+    padding: .6rem;
     border: 1px solid #bbb;
     border-radius: 4px;
     font-size: 1rem;
 }
 
 form button {
-    padding: 0.6rem;
-    background-color: #333;
-    color: white;
+    padding: .6rem;
+    background: #333;
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 form button:hover {
-    background-color: #555;
+    background: #555;
 }
 
-/* Titulares secundarios */
 main h2 {
-    margin-bottom: 1rem;
+    margin: 1.5rem 0 .7rem;
     font-size: 1.4rem;
     color: #444;
 }
 
-/* Footer o separadores simples (si querés más adelante) */
-footer {
-    margin-top: 3rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #777;
-}
-/* === Header con navegación === */
-header nav {
-    display: flex;
-    gap: 1rem;
-}
-
-header nav a {
-    text-decoration: none;
-    color: #008060;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-header nav a:hover {
-    color: #005f46;
-}
-
-/* === Footer general === */
-footer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ccc;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #777;
-}
 .resumen-compra {
     background: #fff;
     border: 1px solid #ddd;
@@ -206,49 +216,19 @@ footer {
 }
 
 .resumen-compra p {
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
 }
 
-/* --------------------------------------------
-   ✅ Mejora del grid de productos (index.html)
--------------------------------------------- */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    /* 5 columnas fijas */
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-/* En pantallas medianas (tablet): 3 columnas */
-@media (max-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* En pantallas pequeñas (celular horizontal): 2 columnas */
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* En móviles pequeños (celular vertical): 1 columna */
-@media (max-width: 480px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-}
-/* --- Aviso de formulario enviado ------------------------ */
+/* === 5. Avisos “exito” ======================================= */
 .oculto {
     display: none;
 }
 
-#mensaje-enviado {
-    display: none;
-    /* oculto por defecto, doble seguro */
+.visible {
+    display: block;
+}
+
+.exito {
     background: #e6ffee;
     color: #246b27;
     border: 1px solid #38a169;
@@ -258,22 +238,48 @@ footer {
     font-weight: 600;
 }
 
-#mensaje-enviado.visible {
-    /* clase que pondremos con JS */
-    display: block;
-}
-/* Oculta por defecto cualquier elemento con esta clase */
-.oculto {
-    display: none;
+/* === 6. Breakpoints responsivos ============================== */
+@media (max-width:1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-/* Estilo opcional del aviso */
-.exito {
-    margin: 1rem 0;
-    padding: 0.8rem;
-    background: #eaf9e5;
-    border: 1px solid #4caf50;
-    color: #256029;
-    border-radius: 4px;
-    font-weight: 600;
+@media (max-width:768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:600px) {
+    header {
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* === 7. Responsive extra , carrito movil  ============================== */
+@media (max-width: 480px) {
+    .card-cart {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 1rem;
+    }
+
+    #carrito-total {
+        font-size: 1rem;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .botones button {
+        width: 100%;
+    }
 }
